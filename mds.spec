@@ -6,12 +6,12 @@
 %if %mdkversion < 200610
 %define py_puresitedir %{_prefix}/lib/python%{pyver}/site-packages/
 %endif
-%define ver 6792
+%define ver 6798
 
 Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.0
-Release:	%mkrel 0.0.2
+Release:	%mkrel 1
 License:	GPL
 Group:		System/Servers
 URL:		http://mds.mandriva.org/
