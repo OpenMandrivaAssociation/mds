@@ -11,7 +11,7 @@
 Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.0
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Group:		System/Servers
 URL:		http://mds.mandriva.org/
