@@ -10,12 +10,12 @@
 Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.1
-%define subrel 2
+%define subrel 3
 Release:	%mkrel 0
 License:	GPL
 Group:		System/Management
 URL:		http://mds.mandriva.org/
-Source0:        http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
+Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  python-devel
 BuildRequires:  gettext-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -32,11 +32,12 @@ Requires:	python-mmc-base >= 3.0.2
 Requires:	samba-common
 
 %description -n	python-mmc-samba
-SAMBA management plugin for the MMC.
+SAMBA management plugin for the MMC. It includes
+SAMBA accounts and shares management.
 
 %package -n	python-mmc-mail
 Summary:	Mandriva Management Console base plugin
-Group:		System/Servers
+Group:		System/Management
 Suggests:	postfix
 Suggests:	postfix-ldap
 Requires:	python-mmc-base >= 3.0.2
@@ -72,7 +73,10 @@ Group:		System/Management
 Requires:	python-mmc-base >= 3.0.2
 
 %description -n	python-mmc-bulkimport
-MDS bulk import plugin for the MMC agent.
+Mass import plugin for MMC.
+
+The bulkimport plugin can be used to import or modify multiple
+users with CSV files.
 
 %package -n	python-mmc-sshlpk
 Summary:	Mandriva Management Console sshlpk plugin
