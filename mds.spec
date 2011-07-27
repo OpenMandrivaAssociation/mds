@@ -13,7 +13,7 @@ Version:	2.4.1
 %define subrel 3
 Release:	%mkrel 0
 License:	GPL
-Group:		System/Management
+Group:		System/Servers
 URL:		http://mds.mandriva.org/
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  python-devel
@@ -25,7 +25,7 @@ The Mandriva Management Directory Server (src.rpm)
 
 %package -n	python-mmc-samba
 Summary:	Mandriva Management Console SAMBA plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	acl
 Requires:	pylibacl
 Requires:	python-mmc-base >= 3.0.2
@@ -37,7 +37,7 @@ SAMBA accounts and shares management.
 
 %package -n	python-mmc-mail
 Summary:	Mandriva Management Console base plugin
-Group:		System/Management
+Group:		System/Servers
 Suggests:	postfix
 Suggests:	postfix-ldap
 Requires:	python-mmc-base >= 3.0.2
@@ -47,7 +47,7 @@ Mail account management plugin for the MMC.
 
 %package -n	python-mmc-proxy
 Summary:	Mandriva Management Console proxy plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	python-mmc-base >= 3.0.2
 Requires:	squid
 Requires:	squidGuard
@@ -57,7 +57,7 @@ Squidguard/Squid management plugin for the MMC.
 
 %package -n	python-mmc-network
 Summary:	Mandriva Management Console network plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	python-mmc-base >= 3.0.2
 Suggests:	dhcp-server
 Suggests:   	bind
@@ -69,7 +69,7 @@ This plugin requires a LDAP-patched version of ISC DHCPD and BIND9.
 
 %package -n	python-mmc-bulkimport
 Summary:	Mandriva Management Console bulkimport plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	python-mmc-base >= 3.0.2
 
 %description -n	python-mmc-bulkimport
@@ -80,7 +80,7 @@ users with CSV files.
 
 %package -n	python-mmc-sshlpk
 Summary:	Mandriva Management Console sshlpk plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	python-mmc-base >= 3.0.2
 
 %description -n	python-mmc-sshlpk
@@ -92,7 +92,7 @@ http://code.google.com/p/openssh-lpk/
 
 %package -n	python-mmc-userquota
 Summary:	Mandriva Management Console userquota plugin
-Group:		System/Management
+Group:		System/Servers
 Requires:	python-mmc-base >= 3.0.2
 Requires:	quota
 
@@ -104,7 +104,7 @@ attribute for network quotas.
 
 %package -n	mmc-web-mail
 Summary:	Postfix/Mail module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	postfix
 Requires:	mmc-web-base >= 3.0.2
 
@@ -115,7 +115,7 @@ This is the Mail module.
 
 %package -n	mmc-web-network
 Summary:	DNS/DHCP management module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-network
@@ -125,7 +125,7 @@ This is the Network module.
 
 %package -n	mmc-web-proxy
 Summary:	SquidGuard module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-proxy
@@ -135,7 +135,7 @@ This is the Squid/SquidGuard module.
 
 %package -n	mmc-web-samba
 Summary:	SAMBA module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-samba
@@ -145,7 +145,7 @@ This is the SAMBA module.
 
 %package -n	mmc-web-bulkimport
 Summary:	Bulk import module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-bulkimport
@@ -155,7 +155,7 @@ This is the bulk import module.
 
 %package -n	mmc-web-sshlpk
 Summary:	SSH public key module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-sshlpk
@@ -165,7 +165,7 @@ This is the SSH public key module.
 
 %package -n	mmc-web-userquota
 Summary:	User quota module for the MMC web interface
-Group:		System/Management
+Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.2
 
 %description -n	mmc-web-userquota
