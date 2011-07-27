@@ -10,7 +10,7 @@
 Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.1
-%define subrel 1
+%define subrel 2
 Release:	%mkrel 0
 License:	GPL
 Group:		System/Management
@@ -57,15 +57,9 @@ Squidguard/Squid management plugin for the MMC.
 %package -n	python-mmc-network
 Summary:	Mandriva Management Console network plugin
 Group:		System/Management
-%if 0%{?mandriva_version}
-Suggests:	dhcp-server
-Suggests:   bind
-%endif
-%if 0%{?suse_version}
-Recommends: dhcp-server
-Recommends: bind
-%endif
 Requires:	python-mmc-base >= 3.0.2
+Suggests:	dhcp-server
+Suggests:   	bind
 
 %description -n	python-mmc-network
 DNS/DHCP management plugin for the MMC.
@@ -186,7 +180,14 @@ make
 rm -rf %{buildroot}
 make DESTDIR="$RPM_BUILD_ROOT" install
 # cleanup
-rm -f %{buildroot}%{py_puresitedir}/*.egg-info
+rm -f `find %{buildroot} -name *.pyo`
+%find_lang mail
+%find_lang network
+%find_lang proxy
+%find_lang samba
+%find_lang bulkimport
+%find_lang sshlpk
+%find_lang userquota
 
 %clean
 rm -rf %{buildroot}
@@ -260,43 +261,43 @@ rm -rf %{buildroot}
 %dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/userquota
 
-%files -n mmc-web-mail
+%files -n mmc-web-mail -f mail.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/mail
 
-%files -n mmc-web-network
+%files -n mmc-web-network -f network.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/network
 
-%files -n mmc-web-proxy
+%files -n mmc-web-proxy -f proxy.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/proxy
 
-%files -n mmc-web-samba
+%files -n mmc-web-samba -f samba.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/samba
 
-%files -n mmc-web-bulkimport
+%files -n mmc-web-bulkimport -f bulkimport.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/bulkimport
 
-%files -n mmc-web-sshlpk
+%files -n mmc-web-sshlpk -f sshlpk.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
 %{_datadir}/mmc/modules/sshlpk
 
-%files -n mmc-web-userquota
+%files -n mmc-web-userquota -f userquota.lang
 %defattr(-,root,root,0755)
 %dir %{_datadir}/mmc
 %dir %{_datadir}/mmc/modules
