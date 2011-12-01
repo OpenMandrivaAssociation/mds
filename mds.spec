@@ -183,7 +183,7 @@ make
 
 %install
 rm -rf %{buildroot}
-make DESTDIR="$RPM_BUILD_ROOT" install
+make DESTDIR="%{buildroot}" install
 # cleanup
 rm -f `find %{buildroot} -name *.pyo`
 %find_lang mail
