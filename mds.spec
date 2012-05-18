@@ -1,4 +1,9 @@
+%define _use_internal_dependency_generator	0
+%if %mdkversion < 201200 || !%{_use_internal_dependency_generator}
 %define _requires_exceptions pear(graph\\|pear(includes\\|pear(modules
+%else
+%define __noautoreq 'pear\\(graph|pear\\(includes|pear\\(modules'
+%endif
 
 %define _enable_debug_packages %{nil}
 %define debug_package          %{nil}
@@ -9,19 +14,19 @@
 
 Summary:	Mandriva Management Directory Server
 Name:		mds
-Version:	2.4.2
+Version:	2.4.2.2
 %define subrel 1
 Release:	%mkrel 0
 License:	GPL
 Group:		System/Servers
-URL:		http://mds.mandriva.org/
+URL:		http://mds.mandriva.org
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  python-devel
 BuildRequires:  gettext-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-The Mandriva Management Directory Server (src.rpm)
+The Mandriva Management Directory Server.
 
 %package -n	python-mmc-samba
 Summary:	Mandriva Management Console SAMBA plugin
@@ -108,6 +113,12 @@ Summary:	Postfix/Mail module for the MMC web interface
 Group:		System/Servers
 Requires:	postfix
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(edit.php)
+Provides:	pear(mail-xmlrpc.php)
+Provides:	pear(mail.inc.php)
+%endif
 
 %description -n	mmc-web-mail
 Mandriva Management Console web interface designed by Linbox.
@@ -118,6 +129,12 @@ This is the Mail module.
 Summary:	DNS/DHCP management module for the MMC web interface
 Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(localSidebar.php)
+Provides:	pear(servicedhcpfailover.php)
+Provides:	pear(subnetedit.php)
+%endif
 
 %description -n	mmc-web-network
 Mandriva Management Console web interface designed by Linbox.
@@ -128,6 +145,10 @@ This is the Network module.
 Summary:	SquidGuard module for the MMC web interface
 Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(localSidebar.php)
+%endif
 
 %description -n	mmc-web-proxy
 Mandriva Management Console web interface designed by Linbox.
@@ -138,6 +159,10 @@ This is the Squid/SquidGuard module.
 Summary:	SAMBA module for the MMC web interface
 Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(user-xmlrpc.inc.php)
+%endif
 
 %description -n	mmc-web-samba
 Mandriva Management Console web interface designed by Linbox.
@@ -158,6 +183,10 @@ This is the bulk import module.
 Summary:	SSH public key module for the MMC web interface
 Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(sshlpk-xmlrpc.php)
+%endif
 
 %description -n	mmc-web-sshlpk
 Mandriva Management Console web interface designed by Linbox.
@@ -168,6 +197,11 @@ This is the SSH public key module.
 Summary:	User quota module for the MMC web interface
 Group:		System/Servers
 Requires:	mmc-web-base >= 3.0.3
+%if %mdkversion >= 201200 && %{_use_internal_dependency_generator}
+# add buggy self dependencies
+Provides:	pear(userquota-xmlrpc.php)
+Provides:	pear(userquota.php)
+%endif
 
 %description -n	mmc-web-userquota
 Mandriva Management Console web interface designed by Linbox.
@@ -199,40 +233,23 @@ rm -rf %{buildroot}
 
 %files -n python-mmc-mail
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/mail.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/mail
 
 %files -n python-mmc-network
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/network.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/network
 
 %files -n python-mmc-proxy
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/proxy.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/proxy
 
 %files -n python-mmc-samba
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/samba.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/samba
-%dir %{_libdir}/mmc
 %{_libdir}/mmc/add_machine_script
 %{_libdir}/mmc/add_change_share_script
 %{_libdir}/mmc/add_printer_script
@@ -241,69 +258,79 @@ rm -rf %{buildroot}
 
 %files -n python-mmc-bulkimport
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/bulkimport.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/bulkimport
 
 %files -n python-mmc-sshlpk
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/sshlpk.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/sshlpk
 
 %files -n python-mmc-userquota
 %defattr(-,root,root,0755)
-%dir %{_sysconfdir}/mmc
-%dir %{_sysconfdir}/mmc/plugins
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/userquota.ini
-%dir %{py_puresitedir}/mmc
-%dir %{py_puresitedir}/mmc/plugins
 %{py_puresitedir}/mmc/plugins/userquota
 
 %files -n mmc-web-mail -f mail.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/mail
+%dir %{_datadir}/mmc/modules/mail
+%dir %{_datadir}/mmc/modules/mail/locale
+%{_datadir}/mmc/modules/mail/*.php
+%{_datadir}/mmc/modules/mail/aliases
+%{_datadir}/mmc/modules/mail/domains
+%{_datadir}/mmc/modules/mail/graph
+%{_datadir}/mmc/modules/mail/includes
 
 %files -n mmc-web-network -f network.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/network
+%dir %{_datadir}/mmc/modules/network
+%dir %{_datadir}/mmc/modules/network/locale
+%{_datadir}/mmc/modules/network/*.php
+%{_datadir}/mmc/modules/network/dhcplogview
+%{_datadir}/mmc/modules/network/dnslogview
+%{_datadir}/mmc/modules/network/graph
+%{_datadir}/mmc/modules/network/includes
+%{_datadir}/mmc/modules/network/network
 
 %files -n mmc-web-proxy -f proxy.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/proxy
+%dir %{_datadir}/mmc/modules/proxy
+%dir %{_datadir}/mmc/modules/proxy/locale
+%{_datadir}/mmc/modules/proxy/*.php
+%{_datadir}/mmc/modules/proxy/blacklist
+%{_datadir}/mmc/modules/proxy/graph
+%{_datadir}/mmc/modules/proxy/includes
 
 %files -n mmc-web-samba -f samba.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/samba
+%dir %{_datadir}/mmc/modules/samba
+%dir %{_datadir}/mmc/modules/samba/locale
+%{_datadir}/mmc/modules/samba/*.php
+%{_datadir}/mmc/modules/samba/config
+%{_datadir}/mmc/modules/samba/includes
+%{_datadir}/mmc/modules/samba/machines
+%{_datadir}/mmc/modules/samba/shares
+%{_datadir}/mmc/modules/samba/status
+%{_datadir}/mmc/modules/samba/views
 
 %files -n mmc-web-bulkimport -f bulkimport.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/bulkimport
+%dir %{_datadir}/mmc/modules/bulkimport
+%dir %{_datadir}/mmc/modules/bulkimport/locale
+%{_datadir}/mmc/modules/bulkimport/*.php
+%{_datadir}/mmc/modules/bulkimport/import
+%{_datadir}/mmc/modules/bulkimport/includes
 
 %files -n mmc-web-sshlpk -f sshlpk.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/sshlpk
+%dir %{_datadir}/mmc/modules/sshlpk
+%dir %{_datadir}/mmc/modules/sshlpk/locale
+%{_datadir}/mmc/modules/sshlpk/*.php
+%{_datadir}/mmc/modules/sshlpk/includes
 
 %files -n mmc-web-userquota -f userquota.lang
 %defattr(-,root,root,0755)
-%dir %{_datadir}/mmc
-%dir %{_datadir}/mmc/modules
-%{_datadir}/mmc/modules/userquota
+%dir %{_datadir}/mmc/modules/userquota
+%dir %{_datadir}/mmc/modules/userquota/locale
+%{_datadir}/mmc/modules/userquota/*.php
+%{_datadir}/mmc/modules/userquota/includes
