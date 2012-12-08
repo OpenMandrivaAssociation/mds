@@ -1,28 +1,19 @@
-%if !%{_use_internal_dependency_generator}
-%define _requires_exceptions pear(graph\\|pear(includes\\|pear(modules
-%else
-%define __noautoreq 'pear\\((graph|includes|modules)'
-%endif
+#%#define _use_internal_dependency_generator	0
+%define __noautoreq 'pear\\(graph|pear\\(includes|pear\\(modules'
 
 %define _enable_debug_packages %{nil}
 %define debug_package          %{nil}
 
-%if %mdkversion < 200610
-%define py_puresitedir %{_prefix}/lib/python%{pyver}/site-packages/
-%endif
-
 Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.2.2
-%define subrel 1
-Release:	%mkrel 0
+Release:	1
 License:	GPL
 Group:		System/Servers
 URL:		http://mds.mandriva.org
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  python-devel
 BuildRequires:  gettext-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The Mandriva Management Directory Server.
@@ -215,7 +206,6 @@ This is the userquota module.
 make
 
 %install
-rm -rf %{buildroot}
 make DESTDIR="%{buildroot}" install
 # cleanup
 rm -f `find %{buildroot} -name *.pyo`
@@ -227,26 +217,19 @@ rm -f `find %{buildroot} -name *.pyo`
 %find_lang sshlpk
 %find_lang userquota
 
-%clean
-rm -rf %{buildroot}
-
 %files -n python-mmc-mail
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/mail.ini
 %{py_puresitedir}/mmc/plugins/mail
 
 %files -n python-mmc-network
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/network.ini
 %{py_puresitedir}/mmc/plugins/network
 
 %files -n python-mmc-proxy
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/proxy.ini
 %{py_puresitedir}/mmc/plugins/proxy
 
 %files -n python-mmc-samba
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/samba.ini
 %{py_puresitedir}/mmc/plugins/samba
 %{_libdir}/mmc/add_machine_script
@@ -256,22 +239,18 @@ rm -rf %{buildroot}
 %{_libdir}/mmc/delete_share_script
 
 %files -n python-mmc-bulkimport
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/bulkimport.ini
 %{py_puresitedir}/mmc/plugins/bulkimport
 
 %files -n python-mmc-sshlpk
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/sshlpk.ini
 %{py_puresitedir}/mmc/plugins/sshlpk
 
 %files -n python-mmc-userquota
-%defattr(-,root,root,0755)
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/userquota.ini
 %{py_puresitedir}/mmc/plugins/userquota
 
 %files -n mmc-web-mail -f mail.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/mail
 %dir %{_datadir}/mmc/modules/mail/locale
 %{_datadir}/mmc/modules/mail/*.php
@@ -281,7 +260,6 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/mail/includes
 
 %files -n mmc-web-network -f network.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/network
 %dir %{_datadir}/mmc/modules/network/locale
 %{_datadir}/mmc/modules/network/*.php
@@ -292,7 +270,6 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/network/network
 
 %files -n mmc-web-proxy -f proxy.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/proxy
 %dir %{_datadir}/mmc/modules/proxy/locale
 %{_datadir}/mmc/modules/proxy/*.php
@@ -301,7 +278,6 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/proxy/includes
 
 %files -n mmc-web-samba -f samba.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/samba
 %dir %{_datadir}/mmc/modules/samba/locale
 %{_datadir}/mmc/modules/samba/*.php
@@ -313,7 +289,6 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/samba/views
 
 %files -n mmc-web-bulkimport -f bulkimport.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/bulkimport
 %dir %{_datadir}/mmc/modules/bulkimport/locale
 %{_datadir}/mmc/modules/bulkimport/*.php
@@ -321,15 +296,55 @@ rm -rf %{buildroot}
 %{_datadir}/mmc/modules/bulkimport/includes
 
 %files -n mmc-web-sshlpk -f sshlpk.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/sshlpk
 %dir %{_datadir}/mmc/modules/sshlpk/locale
 %{_datadir}/mmc/modules/sshlpk/*.php
 %{_datadir}/mmc/modules/sshlpk/includes
 
 %files -n mmc-web-userquota -f userquota.lang
-%defattr(-,root,root,0755)
 %dir %{_datadir}/mmc/modules/userquota
 %dir %{_datadir}/mmc/modules/userquota/locale
 %{_datadir}/mmc/modules/userquota/*.php
 %{_datadir}/mmc/modules/userquota/includes
+
+
+%changelog
+* Mon May 21 2012 Paulo Andrade <pcpa@mandriva.com.br> 2.4.2.2-0.1mdv2012.0
++ Revision: 799776
+- Update to latest upstream release.
+
+* Mon Sep 26 2011 Jean-Philippe Braun <jpbraun@mandriva.com> 2.4.2-0.1
++ Revision: 701298
+- new upstream release
+
+* Wed Jul 27 2011 Jean-Philippe Braun <jpbraun@mandriva.com> 2.4.1-0.3
++ Revision: 691963
+- Fix packages group
+- Updated package description and Group
+- Fixed PO files in tarball
+  packaging: removed wrong distrib tests, use of findlang macro
+- New release of MDS
+
+* Wed May 04 2011 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-3
++ Revision: 666407
+- mass rebuild
+
+* Tue Nov 02 2010 Funda Wang <fwang@mandriva.org> 2.4.0-2mdv2011.0
++ Revision: 591749
+- rebuild for py 2.7
+
+* Fri Apr 30 2010 Anne Nicolas <ennael@mandriva.org> 2.4.0-1mdv2010.1
++ Revision: 541310
+- bug fix release
+
+* Thu Apr 29 2010 Anne Nicolas <ennael@mandriva.org> 2.4.0-0.0.2mdv2010.1
++ Revision: 540948
+- final release
+
+* Tue Apr 27 2010 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-0.0.1mdv2010.1
++ Revision: 539777
+- import mds
+
+
+* Tue Apr 27 2010 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-1mdv2010.1
+- initial Mandriva package
