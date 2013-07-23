@@ -8,12 +8,12 @@ Summary:	Mandriva Management Directory Server
 Name:		mds
 Version:	2.4.2.2
 Release:	1
-License:	GPL
+License:	GPLv2
 Group:		System/Servers
-URL:		http://mds.mandriva.org
+Url:		http://mds.mandriva.org
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  python-devel
 BuildRequires:  gettext-devel
+BuildRequires:  pkgconfig(python)
 
 %description
 The Mandriva Management Directory Server.
@@ -199,7 +199,7 @@ Mandriva Management Console web interface designed by Linbox.
 This is the userquota module.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 %configure
@@ -307,44 +307,3 @@ rm -f `find %{buildroot} -name *.pyo`
 %{_datadir}/mmc/modules/userquota/*.php
 %{_datadir}/mmc/modules/userquota/includes
 
-
-%changelog
-* Mon May 21 2012 Paulo Andrade <pcpa@mandriva.com.br> 2.4.2.2-0.1mdv2012.0
-+ Revision: 799776
-- Update to latest upstream release.
-
-* Mon Sep 26 2011 Jean-Philippe Braun <jpbraun@mandriva.com> 2.4.2-0.1
-+ Revision: 701298
-- new upstream release
-
-* Wed Jul 27 2011 Jean-Philippe Braun <jpbraun@mandriva.com> 2.4.1-0.3
-+ Revision: 691963
-- Fix packages group
-- Updated package description and Group
-- Fixed PO files in tarball
-  packaging: removed wrong distrib tests, use of findlang macro
-- New release of MDS
-
-* Wed May 04 2011 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-3
-+ Revision: 666407
-- mass rebuild
-
-* Tue Nov 02 2010 Funda Wang <fwang@mandriva.org> 2.4.0-2mdv2011.0
-+ Revision: 591749
-- rebuild for py 2.7
-
-* Fri Apr 30 2010 Anne Nicolas <ennael@mandriva.org> 2.4.0-1mdv2010.1
-+ Revision: 541310
-- bug fix release
-
-* Thu Apr 29 2010 Anne Nicolas <ennael@mandriva.org> 2.4.0-0.0.2mdv2010.1
-+ Revision: 540948
-- final release
-
-* Tue Apr 27 2010 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-0.0.1mdv2010.1
-+ Revision: 539777
-- import mds
-
-
-* Tue Apr 27 2010 Oden Eriksson <oeriksson@mandriva.com> 2.4.0-1mdv2010.1
-- initial Mandriva package
