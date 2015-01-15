@@ -209,13 +209,6 @@ make
 make DESTDIR="%{buildroot}" install
 # cleanup
 rm -f `find %{buildroot} -name *.pyo`
-%find_lang mail
-%find_lang network
-%find_lang proxy
-%find_lang samba
-%find_lang bulkimport
-%find_lang sshlpk
-%find_lang userquota
 
 %files -n python-mmc-mail
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/mail.ini
@@ -250,18 +243,18 @@ rm -f `find %{buildroot} -name *.pyo`
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/mmc/plugins/userquota.ini
 %{py_puresitedir}/mmc/plugins/userquota
 
-%files -n mmc-web-mail -f mail.lang
+%files -n mmc-web-mail
 %dir %{_datadir}/mmc/modules/mail
-%dir %{_datadir}/mmc/modules/mail/locale
+%{_datadir}/mmc/modules/mail/locale
 %{_datadir}/mmc/modules/mail/*.php
 %{_datadir}/mmc/modules/mail/aliases
 %{_datadir}/mmc/modules/mail/domains
 %{_datadir}/mmc/modules/mail/graph
 %{_datadir}/mmc/modules/mail/includes
 
-%files -n mmc-web-network -f network.lang
+%files -n mmc-web-network
 %dir %{_datadir}/mmc/modules/network
-%dir %{_datadir}/mmc/modules/network/locale
+%{_datadir}/mmc/modules/network/locale
 %{_datadir}/mmc/modules/network/*.php
 %{_datadir}/mmc/modules/network/dhcplogview
 %{_datadir}/mmc/modules/network/dnslogview
@@ -269,17 +262,17 @@ rm -f `find %{buildroot} -name *.pyo`
 %{_datadir}/mmc/modules/network/includes
 %{_datadir}/mmc/modules/network/network
 
-%files -n mmc-web-proxy -f proxy.lang
+%files -n mmc-web-proxy
 %dir %{_datadir}/mmc/modules/proxy
-%dir %{_datadir}/mmc/modules/proxy/locale
+%{_datadir}/mmc/modules/proxy/locale
 %{_datadir}/mmc/modules/proxy/*.php
 %{_datadir}/mmc/modules/proxy/blacklist
 %{_datadir}/mmc/modules/proxy/graph
 %{_datadir}/mmc/modules/proxy/includes
 
-%files -n mmc-web-samba -f samba.lang
+%files -n mmc-web-samba
 %dir %{_datadir}/mmc/modules/samba
-%dir %{_datadir}/mmc/modules/samba/locale
+%{_datadir}/mmc/modules/samba/locale
 %{_datadir}/mmc/modules/samba/*.php
 %{_datadir}/mmc/modules/samba/config
 %{_datadir}/mmc/modules/samba/includes
@@ -288,22 +281,22 @@ rm -f `find %{buildroot} -name *.pyo`
 %{_datadir}/mmc/modules/samba/status
 %{_datadir}/mmc/modules/samba/views
 
-%files -n mmc-web-bulkimport -f bulkimport.lang
+%files -n mmc-web-bulkimport
 %dir %{_datadir}/mmc/modules/bulkimport
-%dir %{_datadir}/mmc/modules/bulkimport/locale
+%{_datadir}/mmc/modules/bulkimport/locale
 %{_datadir}/mmc/modules/bulkimport/*.php
 %{_datadir}/mmc/modules/bulkimport/import
 %{_datadir}/mmc/modules/bulkimport/includes
 
-%files -n mmc-web-sshlpk -f sshlpk.lang
+%files -n mmc-web-sshlpk
 %dir %{_datadir}/mmc/modules/sshlpk
-%dir %{_datadir}/mmc/modules/sshlpk/locale
+%{_datadir}/mmc/modules/sshlpk/locale
 %{_datadir}/mmc/modules/sshlpk/*.php
 %{_datadir}/mmc/modules/sshlpk/includes
 
-%files -n mmc-web-userquota -f userquota.lang
+%files -n mmc-web-userquota
 %dir %{_datadir}/mmc/modules/userquota
-%dir %{_datadir}/mmc/modules/userquota/locale
+%{_datadir}/mmc/modules/userquota/locale
 %{_datadir}/mmc/modules/userquota/*.php
 %{_datadir}/mmc/modules/userquota/includes
 
