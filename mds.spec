@@ -10,7 +10,7 @@ Version:	2.4.2.2
 Release:	12
 License:	GPLv2
 Group:		System/Servers
-Url:		http://mds.mandriva.org
+Url:		https://mds.mandriva.org
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(python)
