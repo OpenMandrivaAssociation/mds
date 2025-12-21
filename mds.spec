@@ -12,6 +12,11 @@ License:	GPLv2
 Group:		System/Servers
 Url:		https://mds.mandriva.org
 Source0:	http://mds.mandriva.org/pub/mds/sources/%{version}/%{name}-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(python)
 
